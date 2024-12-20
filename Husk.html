@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huskthedev</title>
+    <style>
+        /* Font einbinden */
+        @font-face {
+            font-family: 'DKBlackBamboo';
+            src: url('https://raw.githubusercontent.com/KeySystemGUI/Font/main/DKBlackBamboo.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'DKBlackBamboo', sans-serif;
+            margin: 0;
+            color: #f8f4e3;
+            overflow-x: hidden;
+            text-align: center;
+            padding: 2rem;
+            background: url('background.png') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        .container {
+            position: relative;
+            max-width: 900px;
+            width: 100%;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 1rem auto;
+            border: 3px solid #000000;
+            background: url('bendyprofile.png') no-repeat center;
+            background-size: cover;
+        }
+
+        h1 {
+            font-family: 'DKBlackBamboo', sans-serif;
+            font-size: 3rem;
+            color: #000000;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-family: 'DKBlackBamboo', sans-serif;
+            font-size: 2rem;
+            color: #000000;
+            margin: 1rem 0;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+            line-height: 1.5;
+            color: #000000;
+        }
+
+        .quote {
+            font-style: italic;
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            color: #000000;
+        }
+
+        .author {
+            font-size: 1.2rem;
+            color: #000000;
+            margin-top: 0.5rem;
+        }
+
+        .ink-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://i.imgur.com/t9vXFt7.png') repeat;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        /* 3D Button mit Tiefeneffekt */
+        .bendy-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            font-family: 'DKBlackBamboo', sans-serif;
+            font-size: 1.5rem;
+            color: #fff;
+            background-color: #000;
+            border: 3px solid #f4c542;
+            border-radius: 10px;
+            text-decoration: none;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            margin: 1rem 10px;
+            transform-style: preserve-3d; /* Aktiviert den 3D-Effekt */
+        }
+
+        /* Schatten und Vergrößerung beim Hover */
+        .bendy-btn:hover {
+            background-color: #f4c542;
+            border-color: #000;
+            transform: translateY(-10px) scale(1.1) rotateY(15deg); /* Schwebende Wirkung */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); /* Tiefenschattierung */
+        }
+
+        /* Flackereffekt */
+        @keyframes flicker {
+            0% {
+                opacity: 1;
+                box-shadow: 0 0 20px #f4c542;
+            }
+            50% {
+                opacity: 0.6;
+                box-shadow: 0 0 5px #f4c542;
+            }
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 20px #f4c542;
+            }
+        }
+
+        .bendy-btn:hover {
+            animation: flicker 0.1s ease-in-out infinite;
+        }
+
+        /* Active-State für Klick-Effekt */
+        .bendy-btn:active {
+            transform: translateY(4px) scale(0.98);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Maus-Visualizer */
+        .mouse-visualizer {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: rgba(244, 196, 66, 0.6); /* Goldene Aura */
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.4); /* Weichere Schatten */
+            pointer-events: none;
+            transition: transform 0.1s ease-out, background-color 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Dynamische Skalierung und Bewegung basierend auf der Mausgeschwindigkeit */
+        .mouse-visualizer.active {
+            width: 100px;  /* Größere Aura bei schneller Bewegung */
+            height: 100px; /* Größere Aura bei schneller Bewegung */
+            background-color: rgba(244, 196, 66, 0.8); /* Helleres Gold */
+        }
+
+        /* Interaktive Mausbewegung */
+        .mouse-visualizer.follow {
+            transform: translate(-50%, -50%) scale(1.2) rotate(15deg); /* Leichte Rotation und Vergrößerung */
+        }
+    </style>
+</head>
+<body>
+    <div class="ink-effect"></div>
+    <div class="container">
+        <div class="profile-pic"></div>
+        <h1>Hello, my name is Husk</h1>
+        <p>I am a developer for Xiter. I don't know how we went from 1 to almost 100 members, that's kinda crazy ngl. But yea, that's me. I am just a normal dev and I don't know how I got here.</p>
+        <h2>A quote from me</h2>
+        <p class="quote">"You only have 1 life so enjoy it however you want it."</p>
+        <p class="author">- Husk</p>
+        
+        <!-- Erster Button: Discord-Profil -->
+        <a href="https://discordapp.com/users/1130957788877684956" class="bendy-btn">Discord Profile</a>
+        
+        <!-- Zweiter Button: Xiter Discord Server -->
+        <a href="https://discord.gg/w2FY5n3pMb" class="bendy-btn">Xiter Discord Server</a>
+    </div>
+
+    <!-- Maus-Visualizer -->
+    <div id="mouse-visualizer" class="mouse-visualizer"></div>
+
+    <script>
+        // Maus-Visualizer mit dynamischer Skalierung basierend auf der Mausbewegung
+        const mouseVisualizer = document.getElementById("mouse-visualizer");
+
+        let lastX = 0;
+        let lastY = 0;
+
+        document.addEventListener("mousemove", (e) => {
+            mouseVisualizer.style.left = `${e.pageX}px`;
+            mouseVisualizer.style.top = `${e.pageY}px`;
+
+            const distance = Math.sqrt(Math.pow(e.pageX - lastX, 2) + Math.pow(e.pageY - lastY, 2));
+            if (distance > 50) {
+                mouseVisualizer.classList.add('active'); // Aktiviert größeren Visualizer bei schneller Bewegung
+            } else {
+                mouseVisualizer.classList.remove('active');
+            }
+
+            lastX = e.pageX;
+            lastY = e.pageY;
+
+            // Optionale Rotation und Interaktivität beim Schweben
+            mouseVisualizer.classList.add('follow');
+            setTimeout(() => mouseVisualizer.classList.remove('follow'), 100);
+        });
+    </script>
+</body>
+</html>
